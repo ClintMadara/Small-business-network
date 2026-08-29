@@ -4,8 +4,9 @@ This lab demonstrates how to set up and configure a small business network in Pa
 ---
 
 ### **Step 1 device layout**
+</br>
+Layout the devices on the in Packet tracer and connect them all using the copper straight through cable </br>
 
-Layout the devices on the in Packet tracer and connect them all using the copper straight through cable
 
 - Web (Internet/Ecternal web server)
 - Pc1  & PC2
@@ -18,25 +19,26 @@ Layout the devices on the in Packet tracer and connect them all using the copper
 
 ---
 ### **Step 2 - Cable connections**
-
-- Web → pfSense Gi0/1
-- pfSense Gi0/1 → Router0 Gi0/1
-- Router0 Gi0/0 → Switch0 Gi0/1
-- Switch0 Fa0/2 → PC0
-- Switch0 Fa0/3 → PC1
-- Switch0 Fa0/4 → Domain Controller
-- Switch0 Fa0/5 → Database
-- Switch0 Fa0/6 → Splunk
+</br>
+- Web → pfSense Gi0/1 </br>
+- pfSense Gi0/1 → Router0 Gi0/1 </br>
+- Router0 Gi0/0 → Switch0 Gi0/1 </br>
+- Switch0 Fa0/2 → PC0 </br> 
+- Switch0 Fa0/3 → PC1 </br>
+- Switch0 Fa0/4 → Domain Controller </br>
+- Switch0 Fa0/5 → Database </br>
+- Switch0 Fa0/6 → Splunk </br>
 
 ---
 
 ### **Step 3 - Configuring switch and naming vlans**
-
+</br>
 Vlan 10 - Workstations
 
 Vlan 20 - Servers
-
-**Assiging the two PCs to vlan10**
+</br>
+</br>
+#### **Assigning the two PCs to vlan10**
 
 interface FastEthernet0/1
 switchport mode access
@@ -45,60 +47,60 @@ switchport access vlan 10
 interface FastEthernet0/2
 switchport mode access
 switchport access vlan 10
+</br>
+</br>
 
-
-**Assiging the servers to vlan20**
+#### **Assigning the servers to vlan20**
 
 (Domain controller)
-interface FastEthernet0/3
-switchport mode access
-switchport access vlan 20
+interface FastEthernet0/3 </br>
+switchport mode access </br>
+switchport access vlan 20 </br>
 
 (Database server)
-interface FastEthernet0/4
-switchport mode access
-switchport access vlan 20
+interface FastEthernet0/4 </br>
+switchport mode access </br>
+switchport access vlan 20 </br>
 
 (Splunk server)
-interface FastEthernet0/5
-switchport mode access
-switchport access vlan 20
+interface FastEthernet0/5 </br>
+switchport mode access </br>
+switchport access vlan 20 </br>
+</br>
+</br>
 
+#### **Configuring trunk on port switch (FastEthernet0/1)**
 
-**Configuring trunk on port switch (FastEthernet0/1)**
-
-interface GigabitEthernet0/1
-switchport mode trunk
-switchport trunk allowed vlan 10,20
+interface GigabitEthernet0/1 </br>
+switchport mode trunk </br>
+switchport trunk allowed vlan 10,20 </br>
 
 ---
 
 ### **Step 4 - Configuring (router0) subinterfaces for the vlans by splitting gigabitethernet0/0 into two interfaces**
-
-- Gi0/0.10 = gateway for VLAN 10
-- Gi0/0.20 = gateway for VLAN 20
-
+</br>
+- Gi0/0.10 = gateway for VLAN 10 </br>
+- Gi0/0.20 = gateway for VLAN 20 </br>
+</br>
 interface GigabitEthernet0/0
 no ip address
 no shutdown
 
-interface GigabitEthernet0/0.10
-encapsulation dot1Q 10
-ip address 192.168.10.1 255.255.255.0
+interface GigabitEthernet0/0.10 </br>
+encapsulation dot1Q 10 </br>
+ip address 192.168.10.1 255.255.255.0 </br>
 
-interface GigabitEthernet0/0.20
-encapsulation dot1Q 20
-ip address 192.168.20.1 255.255.255.0
+interface GigabitEthernet0/0.20 </br>
+encapsulation dot1Q 20 </br>
+ip address 192.168.20.1 255.255.255.0 </br>
 
-interface GigabitEthernet0/1
-no shutdown
-end
-write memory
+interface GigabitEthernet0/1 </br>
+no shutdown </br>
 
 ---
 
 ### **Step 5 - Setting static IPs on servers**
-
+</br>
 Domain Controller
 
 IP: 192.168.20.10
@@ -149,7 +151,7 @@ DNS: 0
 ---
 
 ### **Step 6 — Set up DNS on the Domain Controller**
-
+</br>
 - On the DC, go to services menu and find DNS tab
 - Enable DNS
 - Add the servers and their hostnames records
@@ -163,7 +165,7 @@ DNS: 0
 ---
 
 ### **Step 7 — Set up DHCP for the workstations**
-
+</br>
 - On the DC, go to services menu and find DHCP tab
 - Enable DHCP
 - Name the pool to workstations
@@ -177,7 +179,7 @@ DNS: 0
 ---
 
 ### **Step 8 — Set up ACL to block workstations from accessing the database in vlan 20**
-
+</br>
 - Remove and delete any access control list assigned to the interace (GigabitEthernet0/0.10)
 
 interface GigabitEthernet0/0.10
@@ -203,7 +205,7 @@ ip access-group 110 in
 ---
 
 ### **Step 9 — Link pfSense router (firewall) to router**
-
+</br>
 - Configure router to send all **unknown traffic** to pfSense router (since the router only knows traffic from vlan 10 and vlan 20)
 
 interface GigabitEthernet0/1
@@ -230,7 +232,7 @@ ip route 0.0.0.0 0.0.0.0 209.165.200.225
 ---
 
 ### **Step 10 — Create ACL on pfsense to allow internal to external traffic as well as replies through the firewall but new external connections**
-
+</br>
 access-list 120 permit icmp any any echo-reply
 access-list 120 permit tcp any any established
 access-list 120 deny ip any any
@@ -244,7 +246,7 @@ ip access-group 120 in
 ---
 
 ### **Step 11 — Adding security to swithports by shutting down unused ports**
-
+</br>
 - Ports 1-2 are vlan 20
 - Ports 3-5 are vlan 30
 - Ports 6 and onwards are unused ports that need to be shutdown to reduce the threat surface
@@ -259,7 +261,7 @@ shutdown
 ---
 
 ### **Step 12 — Port security**
-
+</br>
 - This is to make sure that port 1 to 5 are restricted to only one device (MAC address) to stop unknown devices from connecting to that port
 
 interface range FastEthernet0/1-5
