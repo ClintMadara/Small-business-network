@@ -1,7 +1,7 @@
 **In step 6 of the configuration, DHCP failed after setting the workstations  to DHCP mode**
 </br>
 </br>
-<img width="806" height="43" alt="image" src="https://github.com/user-attachments/assets/2a444e25-23cf-4ca0-a1d5-cff02dac41e0" />
+<img width="995" height="38" alt="image" src="https://github.com/user-attachments/assets/69e0ac2a-c093-461b-8e06-2369f7709bde" />
 </br>
 </br>
 Reason
