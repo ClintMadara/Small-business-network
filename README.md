@@ -6,7 +6,7 @@ This lab demonstrates how to set up and configure a small business network in Pa
 ### **Step 1 device layout**
 </br>
 Layout the devices on the in Packet tracer and connect them all using the copper straight through cable </br>
-
+</br>
 
 - Web (Internet/Ecternal web server)
 - Pc1  & PC2
@@ -40,13 +40,13 @@ Vlan 20 - Servers
 </br>
 #### **Assigning the two PCs to vlan10**
 
-interface FastEthernet0/1
-switchport mode access
-switchport access vlan 10
+interface FastEthernet0/1 </br>
+switchport mode access </br>
+switchport access vlan 10 </br>
 
-interface FastEthernet0/2
-switchport mode access
-switchport access vlan 10
+interface FastEthernet0/2 </br>
+switchport mode access </br>
+switchport access vlan 10 
 </br>
 </br>
 
@@ -67,7 +67,6 @@ interface FastEthernet0/5 </br>
 switchport mode access </br>
 switchport access vlan 20 </br>
 </br>
-</br>
 
 #### **Configuring trunk on port switch (FastEthernet0/1)**
 
@@ -82,13 +81,14 @@ switchport trunk allowed vlan 10,20 </br>
 - Gi0/0.10 = gateway for VLAN 10 </br>
 - Gi0/0.20 = gateway for VLAN 20 </br>
 </br>
-interface GigabitEthernet0/0
-no ip address
-no shutdown
-
+interface GigabitEthernet0/0 </br>
+no ip address</br> 
+no shutdown </br>
+</br>
 interface GigabitEthernet0/0.10 </br>
 encapsulation dot1Q 10 </br>
 ip address 192.168.10.1 255.255.255.0 </br>
+</br>
 
 interface GigabitEthernet0/0.20 </br>
 encapsulation dot1Q 20 </br>
@@ -100,52 +100,57 @@ no shutdown </br>
 ---
 
 ### **Step 5 - Setting static IPs on servers**
-</br>
-Domain Controller
 
-IP: 192.168.20.10
-Mask: 255.255.255.0
-Gateway: 192.168.20.1
-DNS: 192.168.20.10
+#### Domain Controller
 
-</br>
+IP: 192.168.20.10 </br>
+Mask: 255.255.255.0 </br>
+Gateway: 192.168.20.1 </br>
+DNS: 192.168.20.10 </br>
+
 <img width="1015" height="198" alt="image" src="https://github.com/user-attachments/assets/c54c5256-0980-4158-afde-0db76a2410ad" />
 </br>
 </br>
-Database
 
-IP: 192.168.20.11
-Mask: 255.255.255.0
-Gateway: 192.168.20.1
-DNS: 192.168.20.10
+ #### Database
 
-</br>
+IP: 192.168.20.11 </br>
+Mask: 255.255.255.0 </br>
+Gateway: 192.168.20.1 </br>
+DNS: 192.168.20.10 </br>
+
 <img width="1008" height="193" alt="image" src="https://github.com/user-attachments/assets/27f05fd0-50d6-4685-b0f1-e20fcd55de9b" />
 </br>
 </br>
 
-Splunk
+#### Splunk
 
-IP: 192.168.20.12
-Mask: 255.255.255.0
-Gateway: 192.168.20.1
-DNS: 192.168.20.10
+IP: 192.168.20.12 </br>
+Mask: 255.255.255.0 </br>
+Gateway: 192.168.20.1 </br>
+DNS: 192.168.20.10 </br>
 
 <img width="1010" height="199" alt="image" src="https://github.com/user-attachments/assets/281e361f-d521-4ecc-8920-a0f000da6b70" />
+</br>
+</br>
 
-External Web server (Emulating the internet)
+#### External Web server (Emulating the internet)
 
-IP: 209.165.200.225
-Mask: 255.255.255.252
-Gateway: 209.165.200.226
-DNS: 0
+IP: 209.165.200.225 </br>
+Mask: 255.255.255.252 </br>
+Gateway: 209.165.200.226 </br>
+DNS: 0 </br>
 
 <img width="1003" height="178" alt="image" src="https://github.com/user-attachments/assets/3fb549bf-4cce-4faa-bffe-e168e41dc321" />
-
+</br>
+</br>
 + ping test - 192.168.20.10  to  192.168.20.12
+</br>
 <img width="449" height="189" alt="image" src="https://github.com/user-attachments/assets/098a572f-a89f-4eec-bc4c-d36f24da6b7c" />
-
+</br>
+</br>
 + ping test to default gateway 192.168.20.10  to  192.168.20.1
++ </br>
 <img width="429" height="185" alt="image" src="https://github.com/user-attachments/assets/48c8d83f-a4dd-4e66-a06c-65aecd7c6d70" />
 
 ---
