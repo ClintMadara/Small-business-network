@@ -3,11 +3,13 @@
 </br>
 <img width="995" height="38" alt="image" src="https://github.com/user-attachments/assets/69e0ac2a-c093-461b-8e06-2369f7709bde" />
 </br>
-</br>
-Reason
+### **Reason**
+
 DHCP server (Domain controller) is on vlan20 and the workstations are on vlan10
 </br>
 Solution
+
+### **Fix**
 
 Configure a DHCP relay on router
 
