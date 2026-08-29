@@ -162,23 +162,26 @@ DNS: 0 </br>
 - Add the servers and their hostnames records
 
 <img width="847" height="279" alt="image" src="https://github.com/user-attachments/assets/e1638759-0ced-4822-b38c-af7af927f2d8" />
+</br>
+</br>
 
 + Run an NSlookup on the DC to confirm that the IPs can be resolved and DNS is working
 
-<img width="250" height="113" alt="image" src="https://github.com/user-attachments/assets/2168f92c-2997-47d7-bf93-56d07e11b7d6" />
+<img width="400" height="130" alt="image" src="https://github.com/user-attachments/assets/2168f92c-2997-47d7-bf93-56d07e11b7d6" />
 
 ---
 
 ### **Step 7 — Set up DHCP for the workstations**
 </br>
-- On the DC, go to services menu and find DHCP tab
-- Enable DHCP
-- Name the pool to workstations
-- Set default gateway to vlan 10 interface on the router: 192.168.10.1
-- Set the DNS server to the IP on the Domain controller: 192.168.20.10
-- Set start IP address to: 192.168.10.21
-- Set the subnet mask to: 255.255.255.0
-
+- On the DC, go to services menu and find DHCP tab </br>
+- Enable DHCP </br>
+- Name the pool to workstations </br>
+- Set default gateway to vlan 10 interface on the router: 192.168.10.1 </br>
+- Set the DNS server to the IP on the Domain controller: 192.168.20.10 </br>
+- Set start IP address to: 192.168.10.21 </br>
+- Set the subnet mask to: 255.255.255.0 </br>
+</br>
+</br>
 <img width="846" height="340" alt="image" src="https://github.com/user-attachments/assets/1315030c-377c-48bd-9d01-e561f50156ef" />
 
 ---
@@ -211,12 +214,12 @@ ip access-group 110 in
 
 ### **Step 9 — Link pfSense router (firewall) to router**
 </br>
-- Configure router to send all **unknown traffic** to pfSense router (since the router only knows traffic from vlan 10 and vlan 20)
+* Configure router to send all **unknown traffic** to pfSense router (since the router only knows traffic from vlan 10 and vlan 20)
 
-interface GigabitEthernet0/1
-ip address 192.168.30.2 255.255.255.0
-no shutdown
-ip route 0.0.0.0 0.0.0.0 192.168.30.1
+interface GigabitEthernet0/1 </br>
+ip address 192.168.30.2 255.255.255.0 </br>
+no shutdown </br>
+ip route 0.0.0.0 0.0.0.0 192.168.30.1 </br>
 
 - Configure pfsense router to forward unknown traffic from router to the web server (The internet)
 
