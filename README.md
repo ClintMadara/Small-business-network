@@ -1,5 +1,7 @@
 # Small-business-network
-This lab demonstrates how to set up and configure a small business network in Packet tracer
+This lab demonstrates how to set up and configure a small business network behind a firewall in Packet Tracer. The workstations sit on Vlan 10 and get addresses assigned to the via DHCP enabled on the domain controller. The servers (Domain controller, Database server and Splunk server) sit on Vlan 20. A 1941 router performs router-on-a-stick so that the two Vlans can communicate with each other. A second 1941 router acts as a pfSense firewall and performs NAT to a external web server, acting as an external website, to forward outbound traffic while also blocking inbound traffic to the internal network.
+
+An internal ACL lets the PCs on Vlan 10 user MySQL on the database server via port 3306 and also forward logs to the Splunk server via port 9997. Any other access to those servers via any other ports is blocked. I also shutdown any unused ports assigned the physical ports on the switch to the PCs' MAC addresses so that no other PC can can user that port.
 
 ---
 
@@ -31,14 +33,14 @@ Layout the devices on the in Packet tracer and connect them all using the copper
 
 ---
 
-### **Step 3 - Configuring switch and naming vlans**
+### **Step 3 - Configuring switch and naming Vlans**
 </br>
 Vlan 10 - Workstations
 
 Vlan 20 - Servers
 </br>
 </br>
-#### **Assigning the two PCs to vlan10**
+#### **Assigning the two PCs to Vlan10**
 
 interface FastEthernet0/1 </br>
 switchport mode access </br>
@@ -50,7 +52,7 @@ switchport access vlan 10
 </br>
 </br>
 
-#### **Assigning the servers to vlan20**
+#### **Assigning the servers to Vlan20**
 
 (Domain controller)
 interface FastEthernet0/3 </br>
