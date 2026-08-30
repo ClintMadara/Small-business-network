@@ -146,12 +146,12 @@ DNS: 0 </br>
 <img width="1003" height="178" alt="image" src="https://github.com/user-attachments/assets/3fb549bf-4cce-4faa-bffe-e168e41dc321" />
 </br>
 </br>
-+ ping test - 192.168.20.10  to  192.168.20.12
++ Ping test - 192.168.20.10  to  192.168.20.12
 </br>
 <img width="449" height="189" alt="image" src="https://github.com/user-attachments/assets/098a572f-a89f-4eec-bc4c-d36f24da6b7c" />
 </br>
 </br>
-+ ping test to default gateway 192.168.20.10  to  192.168.20.1
++ Ping test to default gateway 192.168.20.10  to  192.168.20.1
 + </br>
 <img width="429" height="185" alt="image" src="https://github.com/user-attachments/assets/48c8d83f-a4dd-4e66-a06c-65aecd7c6d70" />
 
@@ -159,9 +159,9 @@ DNS: 0 </br>
 
 ### **Step 6 — Set up DNS on the Domain Controller**
 </br>
-- On the DC, go to services menu and find DNS tab
-- Enable DNS
-- Add the servers and their hostnames records
+- On the DC, go to services menu and find DNS tab </br>
+- Enable DNS </br>
+- Add the servers and their hostnames records </br>
 
 <img width="847" height="279" alt="image" src="https://github.com/user-attachments/assets/e1638759-0ced-4822-b38c-af7af927f2d8" />
 </br>
@@ -192,20 +192,20 @@ DNS: 0 </br>
 </br>
 - Remove and delete any access control list assigned to the interace (GigabitEthernet0/0.10)
 
-interface GigabitEthernet0/0.10
-no ip access-group 110 in
+interface GigabitEthernet0/0.10 </br>
+no ip access-group 110 in </br>
 
 no access-list 110
 
 - Allow workstations to access only SQL on port 3306 on the database server but block everything else
 
-access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.11 eq 3306
-access-list 110 deny ip 192.168.10.0 0.0.0.255 host 192.168.20.11
+access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.11 eq 3306 </br>
+access-list 110 deny ip 192.168.10.0 0.0.0.255 host 192.168.20.11 </br>
 
 - Allow workstations to send logs to Splunk via their forwarder to the Splunk server on port 9907 and block everything else
 
-access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.12 eq 9997
-access-list 110 deny ip 192.168.10.0 0.0.0.255 host 192.168.20.12
+access-list 110 permit tcp 192.168.10.0 0.0.0.255 host 192.168.20.12 eq 9997 </br>
+access-list 110 deny ip 192.168.10.0 0.0.0.255 host 192.168.20.12 </br>
 
 - Assign ACL 110 to the interface (GigabitEthernet0/0.10)
 
@@ -247,8 +247,8 @@ access-list 120 permit icmp any any echo-reply
 access-list 120 permit tcp any any established
 access-list 120 deny ip any any
 
-interface GigabitEthernet0/0
-ip access-group 120 in
+interface GigabitEthernet0/0 </br>
+ip access-group 120 in </br>
 
 - Ping test from PC0 to external web server: 192.168.10.21 to 209.165.200.225
 <img width="466" height="194" alt="image" src="https://github.com/user-attachments/assets/a6590a67-bd8c-4fc5-a5e1-ea6c34751906" />
@@ -257,14 +257,14 @@ ip access-group 120 in
 
 ### **Step 11 — Adding security to swithports by shutting down unused ports**
 </br>
-- Ports 1-2 are vlan 20
-- Ports 3-5 are vlan 30
-- Ports 6 and onwards are unused ports that need to be shutdown to reduce the threat surface
+- Ports 1-2 are vlan 20 </br>
+- Ports 3-5 are vlan 30 </br>
+- Ports 6 and onwards are unused ports that need to be shutdown to reduce the threat surface </br>
 
-interface range FastEthernet0/6-24
-shutdown
-interface GigabitEthernet0/2
-shutdown
+interface range FastEthernet0/6-24 </br>
+shutdown </br>
+interface GigabitEthernet0/2 </br>
+shutdown </br>
 
 <img width="556" height="388" alt="image" src="https://github.com/user-attachments/assets/2e5947e3-8efe-41ba-8157-6adb82438da0" />
 
@@ -274,8 +274,8 @@ shutdown
 </br>
 - This is to make sure that port 1 to 5 are restricted to only one device (MAC address) to stop unknown devices from connecting to that port
 
-interface range FastEthernet0/1-5
-switchport port-security
-switchport port-security maximum 1
-switchport port-security mac-address sticky
-switchport port-security violation restrict
+interface range FastEthernet0/1-5 </br>
+switchport port-security </br>
+switchport port-security maximum 1 </br>
+switchport port-security mac-address sticky </br>
+switchport port-security violation restrict </br>
