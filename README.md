@@ -7,8 +7,7 @@ An internal ACL on Router0 allows the PCs on Vlan 10 use MySQL on the database s
 
 ### **Step 1 device layout**
 </br>
-Layout the devices on the in Packet tracer and connect them all using the copper straight through cable </br>
-</br>
+Layout the devices on the in Packet tracer and connect them all using the copper straight through cable </br></br>
 
 - Web (Internet/Ecternal web server)
 - Pc1  & PC2
@@ -20,8 +19,8 @@ Layout the devices on the in Packet tracer and connect them all using the copper
 - Server 3 (acting as the Splunk server)
 
 ---
-### **Step 2 - Cable connections**
-</br>
+### **Step 2 - Cable connections**</br>
+
 - Web → pfSense Gi0/1 </br>
 - pfSense Gi0/1 → Router0 Gi0/1 </br>
 - Router0 Gi0/0 → Switch0 Gi0/1 </br>
@@ -78,11 +77,11 @@ switchport trunk allowed vlan 10,20 </br>
 
 ---
 
-### **Step 4 - Configuring (router0) subinterfaces for the vlans by splitting gigabitethernet0/0 into two interfaces**
-</br>
+### **Step 4 - Configuring (router0) subinterfaces for the vlans by splitting gigabitethernet0/0 into two interfaces**</br>
+
 - Gi0/0.10 = gateway for VLAN 10 </br>
 - Gi0/0.20 = gateway for VLAN 20 </br>
-</br>
+
 interface GigabitEthernet0/0 </br>
 no ip address</br> 
 no shutdown </br>
@@ -143,17 +142,13 @@ Mask: 255.255.255.252 </br>
 Gateway: 209.165.200.226 </br>
 DNS: 0 </br>
 
-<img width="1003" height="178" alt="image" src="https://github.com/user-attachments/assets/3fb549bf-4cce-4faa-bffe-e168e41dc321" />
-</br>
-</br>
-+ Ping test - 192.168.20.10  to  192.168.20.12
-</br>
-<img width="449" height="189" alt="image" src="https://github.com/user-attachments/assets/098a572f-a89f-4eec-bc4c-d36f24da6b7c" />
-</br>
-</br>
-+ Ping test to default gateway 192.168.20.10  to  192.168.20.1
-+ </br>
-<img width="429" height="185" alt="image" src="https://github.com/user-attachments/assets/48c8d83f-a4dd-4e66-a06c-65aecd7c6d70" />
+<img width="1003" height="178" alt="image" src="https://github.com/user-attachments/assets/3fb549bf-4cce-4faa-bffe-e168e41dc321" /></br></br>
+
+- Ping test - 192.168.20.10  to  192.168.20.12 </br>
+<img width="449" height="189" alt="image" src="https://github.com/user-attachments/assets/098a572f-a89f-4eec-bc4c-d36f24da6b7c" /></br></br>
+
+- Ping test to default gateway 192.168.20.10  to  192.168.20.1 </br>
+<img width="429" height="185" alt="image" src="https://github.com/user-attachments/assets/48c8d83f-a4dd-4e66-a06c-65aecd7c6d70" /></br></br>
 
 ---
 
@@ -173,8 +168,8 @@ DNS: 0 </br>
 
 ---
 
-### **Step 7 — Set up DHCP for the workstations**
-</br>
+### **Step 7 — Set up DHCP for the workstations**</br>
+
 - On the DC, go to services menu and find DHCP tab </br>
 - Enable DHCP </br>
 - Name the pool to workstations </br>
@@ -189,7 +184,7 @@ DNS: 0 </br>
 ---
 
 ### **Step 8 — Set up ACL to block workstations from accessing the database in vlan 20**
-</br>
+
 - Remove and delete any access control list assigned to the interace (GigabitEthernet0/0.10)
 
 interface GigabitEthernet0/0.10 </br>
@@ -214,9 +209,8 @@ ip access-group 110 in
 
 ---
 
-### **Step 9 — Link pfSense router (firewall) to router**
-</br>
-* Configure router to send all **unknown traffic** to pfSense router (since the router only knows traffic from vlan 10 and vlan 20)
+### **Step 9 — Link pfSense router (firewall) to router**</br>
+ Configure router to send all **unknown traffic** to pfSense router (since the router only knows traffic from vlan 10 and vlan 20)
 
 interface GigabitEthernet0/1 </br>
 ip address 192.168.30.2 255.255.255.0 </br>
@@ -225,11 +219,11 @@ ip route 0.0.0.0 0.0.0.0 192.168.30.1 </br>
 
 - Configure pfsense router to forward unknown traffic from router to the web server (The internet)
 
-interface GigabitEthernet0/0
-description WAN
-ip address 209.165.200.226 255.255.255.252
-no shutdown
-ip route 0.0.0.0 0.0.0.0 209.165.200.225
+interface GigabitEthernet0/0 </br>
+description WANv </br> 
+ip address 209.165.200.226 255.255.255.252 </br>
+no shutdown </br>
+ip route 0.0.0.0 0.0.0.0 209.165.200.225 </br>
 
 <img width="926" height="691" alt="image" src="https://github.com/user-attachments/assets/87efadb3-18b5-4cfe-9b21-31da93fd15db" />
 
@@ -270,8 +264,8 @@ shutdown </br>
 
 ---
 
-### **Step 12 — Port security**
-</br>
+### **Step 12 — Port security**</br>
+
 - This is to make sure that port 1 to 5 are restricted to only one device (MAC address) to stop unknown devices from connecting to that port
 
 interface range FastEthernet0/1-5 </br>
